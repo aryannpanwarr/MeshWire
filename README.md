@@ -2,6 +2,11 @@
 
 Single-page landing site for `meshwire.com`, built with Next.js App Router and Tailwind CSS.
 
+## Links
+
+- Live: https://meshwire.vercel.app
+- Repository: https://github.com/aryannpanwarr/MeshWire
+
 ## Local development
 
 Install dependencies and start the dev server:
