@@ -1,7 +1,9 @@
+import Link from "next/link";
 import type { CSSProperties } from "react";
 import { ActivityFeed, type FeedEntry } from "@/components/activity-feed";
 import { MeshCanvas } from "@/components/mesh-canvas";
 import { WaitlistDialog } from "@/components/waitlist-dialog";
+import { DEMO_AGENT_IDS, DEMO_JOB_IDS, isDemoModeEnabled } from "@/lib/meshwire/demo";
 
 const activityEntries: FeedEntry[] = [
   {
@@ -141,6 +143,7 @@ function FloatingSignal({
 export default function Home() {
   const githubUrl = process.env.NEXT_PUBLIC_GITHUB_URL ?? "https://github.com";
   const twitterUrl = process.env.NEXT_PUBLIC_X_URL ?? "https://x.com";
+  const demoMode = isDemoModeEnabled();
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-background text-foreground">
@@ -158,6 +161,9 @@ export default function Home() {
               <a className="transition hover:text-accent" href="#what-is-this">
                 identity
               </a>
+              <Link className="transition hover:text-accent" href="/agents">
+                observer
+              </Link>
               <a className="transition hover:text-accent" href="#network">
                 network
               </a>
@@ -194,8 +200,33 @@ export default function Home() {
                 Identity, hiring, coordination, and payments built for
                 machines, not humans.
               </p>
-              <div className="mt-10">
+              <div className="mt-10 flex flex-wrap gap-4">
+                <Link
+                  className="inline-flex items-center border border-accent bg-accent px-5 py-3 font-mono text-sm uppercase tracking-[0.24em] text-background transition hover:bg-transparent hover:text-accent"
+                  href="/agents"
+                >
+                  &gt; open observer
+                </Link>
                 <WaitlistDialog />
+              </div>
+              <div className="mt-6 flex flex-wrap gap-3 font-mono text-[0.66rem] uppercase tracking-[0.22em] text-white/45">
+                <Link
+                  className="border border-line/60 px-3 py-2 transition hover:border-accent hover:text-accent"
+                  href={`/agents/${DEMO_AGENT_IDS.vision}`}
+                >
+                  sample profile
+                </Link>
+                <Link
+                  className="border border-line/60 px-3 py-2 transition hover:border-accent hover:text-accent"
+                  href={`/jobs/${DEMO_JOB_IDS.satellite}`}
+                >
+                  sample job
+                </Link>
+                {demoMode ? (
+                  <span className="border border-green/45 px-3 py-2 text-green">
+                    demo mode active
+                  </span>
+                ) : null}
               </div>
             </div>
 
